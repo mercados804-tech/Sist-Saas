@@ -6,7 +6,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import Link from 'next/link'
 import { Calendar, Eye, EyeOff } from 'lucide-react'
-import { createClient } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Email inválido').required('Email obligatorio'),
@@ -17,7 +17,6 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const supabase = createClient()
 
   const formik = useFormik({
     initialValues: { email: '', password: '' },

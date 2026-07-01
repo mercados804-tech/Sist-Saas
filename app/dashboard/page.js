@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Calendar, Users, DollarSign, TrendingUp, Clock, Settings, Menu, LogOut } from 'lucide-react'
-import { createClient } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
 
 export default function DashboardPage() {
@@ -16,7 +16,6 @@ export default function DashboardPage() {
     newCustomers: 12,
   })
   const [reservations, setReservations] = useState([])
-  const supabase = createClient()
 
   useEffect(() => {
     checkUser()

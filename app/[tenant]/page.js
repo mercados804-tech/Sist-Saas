@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { Calendar, Clock, User, Phone, Mail, ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react'
-import { createClient } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 
 const BookingSchema = Yup.object().shape({
   firstName: Yup.string().required('Nombre obligatorio'),
@@ -28,7 +28,6 @@ export default function PublicBookingPage({ params }) {
   const [loading, setLoading] = useState(true)
   const [bookingComplete, setBookingComplete] = useState(false)
   const [reservationId, setReservationId] = useState(null)
-  const supabase = createClient()
 
   useEffect(() => {
     loadTenantData()
