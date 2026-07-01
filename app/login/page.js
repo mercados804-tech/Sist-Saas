@@ -6,7 +6,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import Link from 'next/link'
 import { Calendar, Eye, EyeOff } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
+import { getSupabase } from '@/lib/supabase'
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Email inválido').required('Email obligatorio'),
@@ -25,6 +25,7 @@ export default function LoginPage() {
       setLoading(true)
       setError('')
       try {
+        const supabase = getSupabase()
         const { error } = await supabase.auth.signInWithPassword(values)
         if (error) throw error
         window.location.href = '/dashboard'

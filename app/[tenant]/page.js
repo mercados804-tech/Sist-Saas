@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { Calendar, Clock, User, Phone, Mail, ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
+import { getSupabase } from '@/lib/supabase'
 
 const BookingSchema = Yup.object().shape({
   firstName: Yup.string().required('Nombre obligatorio'),
@@ -36,6 +36,7 @@ export default function PublicBookingPage({ params }) {
   const loadTenantData = async () => {
     setLoading(true)
     try {
+      const supabase = getSupabase()
       // Load tenant
       const { data: tenantData } = await supabase
         .from('tenants')
@@ -108,6 +109,7 @@ export default function PublicBookingPage({ params }) {
     },
     validationSchema: BookingSchema,
     onSubmit: async (values) => {
+      const supabase = getSupabase()
       // Create customer
       const { data: customerData, error: customerError } = await supabase
         .from('customers')

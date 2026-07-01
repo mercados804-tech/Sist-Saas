@@ -6,7 +6,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import Link from 'next/link'
 import { Calendar } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
+import { getSupabase } from '@/lib/supabase'
 
 const ResetSchema = Yup.object().shape({
   email: Yup.string().email('Email inválido').required('Email obligatorio'),
@@ -24,6 +24,7 @@ export default function ResetPasswordPage() {
       setLoading(true)
       setError('')
       try {
+        const supabase = getSupabase()
         const { error } = await supabase.auth.resetPasswordForEmail(values.email, {
           redirectTo: window.location.origin + '/update-password',
         })
